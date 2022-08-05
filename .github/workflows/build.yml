@@ -37,7 +37,7 @@ jobs:
           name: download
           path: download/
       - run: sudo -E bash build.sh > build.log
-      - uses: actions/download-artifact@v3
+      - uses: actions/upload-artifact@v3
         with:
           name: iso
           path: iso/
