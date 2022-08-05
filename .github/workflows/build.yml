@@ -39,7 +39,7 @@ jobs:
       - run: sudo -E bash build.sh > build.log
       - uses: actions/download-artifact@v3
         with:
-          name: ~/artools-workspace/iso/fenrir
+          name: iso
           path: iso/
       - uses: actions/upload-artifact@v3
         with:
