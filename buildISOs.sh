@@ -1,14 +1,12 @@
 #!/bin/bash
 
 # Automated ISO build script
-# 2019-2020, nous
 
 source /usr/share/makepkg/util/message.sh
 colorize
 
-WORKSPACE=/home/$USER/artools-workspace
+WORKSPACE=/home/
 PROFILES=${WORKSPACE}/iso-profiles
-REPO=/srv/iso/weekly-iso
 CWD=`pwd`
 
 cd $PROFILES
@@ -75,7 +73,7 @@ mkdir -p ${PROFILES}
 
 cd $WORKSPACE
 
-cd $PROFILES && git checkout master
+cd $PROFILES
 echo "#################################" >>$CWD/ISO_build.log
 for profile in ${profiles[@]}; do
     for init in ${inits[@]}; do
@@ -86,10 +84,8 @@ for profile in ${profiles[@]}; do
         res=$?
         rm -f ${PROFILES}/$profile/root-overlay/etc/rc.conf
         stamp=$(timestamp)
-        sudo rm -fr /var/lib/artools/buildiso/$profile &
+        rm -fr /var/lib/artools/buildiso/$profile &
         [[ $res == 0 ]] && { echo "$stamp == ${GREEN}Finished building ${_branch} $profile ISO with $init${ALL_OFF}" >> $CWD/ISO_build.log; } \
                         || { echo "$stamp == ${RED}Failed building   ${_branch} $profile ISO with $init${ALL_OFF}" >> $CWD/ISO_build.log; continue; }
-        mv -v ${WORKSPACE}/iso/$profile/fenrirOS-$profile-$init-*.iso ${REPO}/
-        cd $REPO && { sha256sum fenrirOS-*.iso > ${REPO}/sha256sums & }
     done
 done

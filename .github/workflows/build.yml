@@ -1,0 +1,62 @@
+name: Create FenrirOS iso
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+  - cron: "0 0 * * *"
+
+jobs:
+
+  download_artix:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - run: sudo bash download.sh
+    - uses: actions/upload-artifact@v3
+      with:
+        name: download
+        path: download/
+
+  build_fenrir:
+    runs-on: ubuntu-latest
+    needs:
+     - download_artix
+    env:
+      EDITION: runit
+      EXTRA_PKGS: runit elogind-runit
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: download
+          path: download/
+      - run: sudo -E bash build.sh > build.log
+      - uses: actions/download-artifact@v3
+        with:
+          name: ~/artools-workspace/iso/fenrir
+          path: iso/
+      - uses: actions/upload-artifact@v3
+        with:
+          name: artix-fenrir-*.iso
+          path: iso/FenrirOS-runit.zip
+  
+  publish:
+    runs-on: ubuntu-latest
+    needs: post_build
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+      - uses: actions/download-artifact@v3
+      - uses: marvinpinto/action-automatic-releases@v1.2.1
+        with:
+          repo_token: "${{secrets.GITHUB_TOKEN}}"
+          automatic_release_tag: latest
+          files: FenrirOS-runit.zip
+          prerelease: false
+

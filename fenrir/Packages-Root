@@ -4,5 +4,6 @@ mkinitcpio-nfs-utils
 squashfs-tools
 
 artix-grub-live
+grub
 
 artix-live-@initsys@
