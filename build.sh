@@ -42,8 +42,10 @@ buildiso -p base -q
 mkdir /usr/share/artools/iso-profiles/fenrir
 EOF
 
+pushd livefs
 mount --bind fenrir livefs/usr/share/artools/iso-profiles/fenrir
 mount --bind iso livefs/home/artools-workspace/iso/fenrir
+popd
 
 cat <<EOF | chroot livefs /bin/bash -xe -
 buildiso -p fenrir -i runit
