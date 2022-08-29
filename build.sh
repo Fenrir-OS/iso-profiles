@@ -7,12 +7,20 @@
 CWD=$(realpath $(dirname $0))
 BUILD_DIR="$CWD/build/$(date +%s)"
 DOWNLOAD_DIR="$CWD/download"
+ISO_DIR="$CWD/iso"
+FENRIR_DIR="$CWD/fenrir"
 
 mkdir -p $BUILD_DIR
 mount --bind $BUILD_DIR $BUILD_DIR
 pushd $BUILD_DIR
 
 ln -s ${DOWNLOAD_DIR}/* .
+
+mkdir iso
+mkdir fenrir
+
+ln -s ${ISO_DIR}/* /iso
+ln -s ${FENRIR_DIR}/* /fenrir
 
 mkdir isofs
 mount -t iso9660 -o loop,ro artix.iso isofs
