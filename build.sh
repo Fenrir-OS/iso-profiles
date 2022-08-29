@@ -46,10 +46,18 @@ EOF
 pushd livefs
 mkdir -p /usr/share/artools/iso-profiles/fenrir
 mkdir -p /home/artools-workspace/iso/fenrir
-mount --bind ${FENRIR_DIR} /usr/share/artools/iso-profiles/fenrir
-mount --bind ${ISO_DIR} /home/artools-workspace/iso/fenrir
+mkdir -p /home/artools-workspace/fenrir
+# mount --bind ${FENRIR_DIR} /usr/share/artools/iso-profiles/fenrir
+# mount --bind ${ISO_DIR} /home/artools-workspace/iso/fenrir
+cp -r ${FENRIR_DIR} /usr/share/artools/iso-profiles/fenrir
+cp -r ${FENRIR_DIR} /home/artools-workspace/fenrir
+cp -r ${ISO_DIR} /home/artools-workspace/iso/fenrir
+
 chmod -R 777 /usr/share/artools/iso-profiles/fenrir
 chmod -R 777 /home/artools-workspace/iso/fenrir
+chmod -R 777 /home/artools-workspace/fenrir
+
+ls -l /home
 popd
 
 cat <<EOF | chroot livefs /bin/bash -xe -
