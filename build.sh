@@ -40,28 +40,6 @@ pacman-key --init
 pacman-key --populate
 pacman -Sy artix-keyring artools iso-profiles --noconfirm
 basestrap -G -M -c /mnt base ${EXTRA_PKGS}
-buildiso -p base -q
-EOF
-
-pushd livefs
-mkdir -p /usr/share/artools/iso-profiles/fenrir
-mkdir -p /home/artools-workspace/iso/fenrir
-mkdir -p /home/artools-workspace/fenrir
-# mount --bind ${FENRIR_DIR} /usr/share/artools/iso-profiles/fenrir
-# mount --bind ${ISO_DIR} /home/artools-workspace/iso/fenrir
-cp -r ${FENRIR_DIR} /usr/share/artools/iso-profiles/fenrir
-cp -r ${FENRIR_DIR} /home/artools-workspace/fenrir
-cp -r ${ISO_DIR} /home/artools-workspace/iso/fenrir
-
-chmod -R 777 /usr/share/artools/iso-profiles/fenrir
-chmod -R 777 /home/artools-workspace/iso/fenrir
-chmod -R 777 /home/artools-workspace/fenrir
-
-ls -l /home
-popd
-
-cat <<EOF | chroot livefs /bin/bash -xe -
-buildiso -p fenrir -i runit
 EOF
 
 echo "LANG=en_US.UTF-8" >> rootfs/etc/locale.conf
@@ -72,6 +50,28 @@ cp fakeroot-tcp.pkg glibc-linux4.pkg rootfs/
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
 locale-gen
 yes | pacman -U /fakeroot-tcp.pkg /glibc-linux4.pkg
+buildiso -p base -q
+EOF
+
+pushd livefs
+mkdir -p /usr/share/artools/iso-profiles/fenrir
+mkdir -p /home/artools-workspace/iso/fenrir
+mkdir -p /home/artools-workspace/fenrir
+
+# mount --bind ${FENRIR_DIR} /usr/share/artools/iso-profiles/fenrir
+# mount --bind ${ISO_DIR} /home/artools-workspace/iso/fenrir
+
+cp -r ${FENRIR_DIR} /usr/share/artools/iso-profiles/fenrir
+cp -r ${ISO_DIR} /home/artools-workspace/iso/fenrir
+
+chmod -R 777 /usr/share/artools/iso-profiles/fenrir
+chmod -R 777 /home/artools-workspace/fenrir
+
+ls -l /home
+popd
+
+cat <<EOF | chroot livefs /bin/bash -xe -
+buildiso -p fenrir -i runit
 EOF
 
 cat <<EOF > rootfs/etc/resolv.conf
