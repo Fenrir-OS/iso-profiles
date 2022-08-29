@@ -50,8 +50,8 @@ buildiso -p base -q
 EOF
 
 pushd livefs
-mkdir /usr/share/artools/iso-profiles/fenrir
-mkdir /home/artools-workspace/iso/fenrir
+mkdir -r /usr/share/artools/iso-profiles/fenrir
+mkdir -r /home/artools-workspace/iso/fenrir
 mount --bind ${ISO_DIR} /usr/share/artools/iso-profiles/fenrir
 mount --bind ${FENRIR_DIR} /home/artools-workspace/iso/fenrir
 popd
