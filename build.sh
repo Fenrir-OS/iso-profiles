@@ -50,6 +50,7 @@ cp fakeroot-tcp.pkg glibc-linux4.pkg rootfs/
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
 locale-gen
 yes | pacman -U /fakeroot-tcp.pkg /glibc-linux4.pkg
+pacman -U mkinitcpio-firmware
 buildiso -p base -q
 EOF
 
