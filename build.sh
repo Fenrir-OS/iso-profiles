@@ -48,6 +48,8 @@ mkdir -p /usr/share/artools/iso-profiles/fenrir
 mkdir -p /home/artools-workspace/iso/fenrir
 mount --bind ${FENRIR_DIR} /usr/share/artools/iso-profiles/fenrir
 mount --bind ${ISO_DIR} /home/artools-workspace/iso/fenrir
+chmod -R 777 /usr/share/artools/iso-profiles/fenrir
+chmod -R 777 /home/artools-workspace/iso/fenrir
 popd
 
 cat <<EOF | chroot livefs /bin/bash -xe -
