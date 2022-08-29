@@ -34,14 +34,6 @@ jobs:
         with:
           name: download
           path: download/
-      - uses: actions/download-artifact@v3
-        with:
-          name: iso
-          path: iso/
-      - uses: actions/download-artifact@v3
-        with:
-          name: fenrir
-          path: fenrir/
       - run: sudo -E bash build.sh > build.log
       - uses: actions/upload-artifact@v3
         with:
