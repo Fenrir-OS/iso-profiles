@@ -16,12 +16,6 @@ pushd $BUILD_DIR
 
 ln -s ${DOWNLOAD_DIR}/* .
 
-mkdir iso
-mkdir fenrir
-
-ln -s ${ISO_DIR}/* /iso
-ln -s ${FENRIR_DIR}/* /fenrir
-
 mkdir isofs
 mount -t iso9660 -o loop,ro artix.iso isofs
 unsquashfs -f -d livefs ./isofs/LiveOS/rootfs.img
@@ -52,8 +46,8 @@ EOF
 pushd livefs
 mkdir -p /usr/share/artools/iso-profiles/fenrir
 mkdir -p /home/artools-workspace/iso/fenrir
-mount --bind ${ISO_DIR} /usr/share/artools/iso-profiles/fenrir
-mount --bind ${FENRIR_DIR} /home/artools-workspace/iso/fenrir
+mount --bind ${FENRIR_DIR} /usr/share/artools/iso-profiles/fenrir
+mount --bind ${ISO_DIR} /home/artools-workspace/iso/fenrir
 popd
 
 cat <<EOF | chroot livefs /bin/bash -xe -
