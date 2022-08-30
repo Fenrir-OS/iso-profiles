@@ -66,20 +66,11 @@ mkdir -p /home/artools-workspace/iso/fenrir
 mkdir -p /home/artools-workspace/fenrir
 
 mount --bind ${FENRIR_DIR} /usr/share/artools/iso-profiles/fenrir
+mount --bind ${FENRIR_DIR} /home/artools-workspace/fenrir
 mount --bind ${ISO_DIR} /home/artools-workspace/iso/fenrir
 
 chmod -R 777 /usr/share/artools/iso-profiles/fenrir
 chmod -R 777 /home/artools-workspace/fenrir
-
-mkdir -p /mnt/usr/share/artools/iso-profiles/fenrir
-mkdir -p /mnt/home/artools-workspace/iso/fenrir
-mkdir -p /mnt/home/artools-workspace/fenrir
-
-mount --bind ${FENRIR_DIR} /mnt/usr/share/artools/iso-profiles/fenrir
-mount --bind ${ISO_DIR} /mnt/home/artools-workspace/iso/fenrir
-
-chmod -R 777 /mnt/usr/share/artools/iso-profiles/fenrir
-chmod -R 777 /mnt/home/artools-workspace/fenrir
 
 # cp -R ${FENRIR_DIR}/* /usr/share/artools/iso-profiles/fenrir
 # cp -R ${ISO_DIR} /home/artools-workspace/iso/fenrir
