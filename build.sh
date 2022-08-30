@@ -38,9 +38,10 @@ mount --bind rootfs livefs/mnt
 cat <<EOF | chroot livefs /bin/bash -xe -
 pacman-key --init
 pacman-key --populate
-pacman -Sy artix-keyring artools iso-profiles mkinitcpio --noconfirm
+pacman -Sy artix-keyring artools iso-profiles --noconfirm
 basestrap -G -M -c /mnt base ${EXTRA_PKGS}
-mkinitcpio -P
+basestrap /mnt linux-lts linux-firmware
+fstabgen -U /mnt >> /mnt/etc/fstab
 EOF
 
 echo "LANG=en_US.UTF-8" >> rootfs/etc/locale.conf
