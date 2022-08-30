@@ -39,9 +39,10 @@ cat <<EOF | chroot livefs /bin/bash -xe -
 pacman-key --init
 pacman-key --populate
 pacman -Sy artix-keyring artools iso-profiles --noconfirm
-basestrap -G -M -c /mnt base ${EXTRA_PKGS}
+basestrap -G -M -c /mnt base base-devel ${EXTRA_PKGS}
 basestrap /mnt linux-lts linux-firmware
 fstabgen -U /mnt >> /mnt/etc/fstab
+pacman -Syu --disable-download-timeout
 EOF
 
 echo "LANG=en_US.UTF-8" >> rootfs/etc/locale.conf
@@ -52,6 +53,9 @@ cp fakeroot-tcp.pkg glibc-linux4.pkg rootfs/
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
 locale-gen
 yes | pacman -U /fakeroot-tcp.pkg /glibc-linux4.pkg
+EOF
+
+cat <<EOF | chroot livefs /bin/bash -xe -
 buildiso -p base -q
 EOF
 
