@@ -38,8 +38,9 @@ mount --bind rootfs livefs/mnt
 cat <<EOF | chroot livefs /bin/bash -xe -
 pacman-key --init
 pacman-key --populate
-pacman -Sy artix-keyring artools iso-profiles --noconfirm
+pacman -Sy artix-keyring artools iso-profiles mkinitcpio --noconfirm
 basestrap -G -M -c /mnt base ${EXTRA_PKGS}
+mkinitcpio -P
 EOF
 
 echo "LANG=en_US.UTF-8" >> rootfs/etc/locale.conf
@@ -50,7 +51,6 @@ cp fakeroot-tcp.pkg glibc-linux4.pkg rootfs/
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
 locale-gen
 yes | pacman -U /fakeroot-tcp.pkg /glibc-linux4.pkg
-pacman -U mkinitcpio-firmware
 buildiso -p base -q
 EOF
 
