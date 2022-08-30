@@ -34,7 +34,6 @@ jobs:
         with:
           name: download
           path: download/
-      - run: sudo apt-get install linux-modules-5.15.0-1017-azure
       - run: sudo -E bash build.sh > iso/build.log
       - uses: actions/upload-artifact@v3
         with:

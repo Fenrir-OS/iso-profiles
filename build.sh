@@ -57,7 +57,7 @@ pacman-key --init
 pacman-key --populate
 EOF
 
-cat <<EOF | chroot livefs /bin/bash -xe -
+cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
 pacman -Sy artools iso-profiles --noconfirm
 modprobe loop
 buildiso -p base -q
@@ -66,13 +66,13 @@ ln -s ~/artools-workspace /home/artools-workspace
 EOF
 
 pushd livefs
-mkdir -p /usr/share/artools/iso-profiles/fenrir
-mkdir -p /home/artools-workspace/iso/fenrir
-mkdir -p /home/artools-workspace/fenrir
+mkdir -p /mnt/usr/share/artools/iso-profiles/fenrir
+mkdir -p /mnt/home/artools-workspace/iso/fenrir
+mkdir -p /mnt/home/artools-workspace/fenrir
 
-mount --bind ${FENRIR_DIR} /usr/share/artools/iso-profiles/fenrir
-mount --bind ${FENRIR_DIR} /home/artools-workspace/iso/fenrir
-mount --bind ${ISO_DIR} /home/artools-workspace/iso/fenrir
+mount --bind ${FENRIR_DIR} /mnt/usr/share/artools/iso-profiles/fenrir
+mount --bind ${FENRIR_DIR} /mnt/home/artools-workspace/iso/fenrir
+mount --bind ${ISO_DIR} /mnt/home/artools-workspace/iso/fenrir
 
 chmod -R 777 /usr/share/artools/iso-profiles/fenrir
 chmod -R 777 /home/artools-workspace/fenrir
@@ -82,7 +82,7 @@ chmod -R 777 /home/artools-workspace/fenrir
 
 popd
 
-cat <<EOF | chroot livefs /bin/bash -xe -
+cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
 buildiso -p fenrir -i runit
 EOF
 
