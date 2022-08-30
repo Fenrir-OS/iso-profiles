@@ -53,9 +53,6 @@ cp fakeroot-tcp.pkg glibc-linux4.pkg rootfs/
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
 locale-gen
 yes | pacman -U /fakeroot-tcp.pkg /glibc-linux4.pkg
-EOF
-
-cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
 pacman-key --init
 pacman-key --populate
 pacman -Sy artools iso-profiles --noconfirm
@@ -78,7 +75,7 @@ mkdir -p /mnt/home/artools-workspace/iso/fenrir
 mkdir -p /mnt/home/artools-workspace/fenrir
 
 mount --bind ${FENRIR_DIR} /mnt/usr/share/artools/iso-profiles/fenrir
-mount --bind ${ISO_DIR} /mnt/artools-workspace/iso/fenrir
+mount --bind ${ISO_DIR} /mnt/home/artools-workspace/iso/fenrir
 
 chmod -R 777 /mnt/usr/share/artools/iso-profiles/fenrir
 chmod -R 777 /mnt/home/artools-workspace/fenrir
