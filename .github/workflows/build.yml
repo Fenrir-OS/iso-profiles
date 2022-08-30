@@ -34,14 +34,14 @@ jobs:
         with:
           name: download
           path: download/
-      - run: sudo -E bash build.sh > build.log
+      - run: sudo -E bash build.sh > iso/build.log
       - uses: actions/upload-artifact@v3
         with:
           name: iso
           path: iso/
       - uses: actions/upload-artifact@v3
         with:
-          name: artix-fenrir-*.iso
+          name: build.log
           path: iso/*
   
   publish:
