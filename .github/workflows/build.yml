@@ -35,6 +35,7 @@ jobs:
           name: download
           path: download/
       - run: sudo -E bash build.sh > build.log
+      - run: sudo -E ls -l livefs/usr/share/artools/iso-profiles/fenrir
       - uses: actions/upload-artifact@v3
         with:
           name: iso
