@@ -73,6 +73,10 @@ mount --bind ${ISO_DIR} /home/artools-workspace/iso/fenrir
 chmod -R 777 /usr/share/artools/iso-profiles/fenrir
 chmod -R 777 /home/artools-workspace/fenrir
 
+mkdir -p /mnt/usr/share/artools/iso-profiles/fenrir
+mkdir -p /mnt/home/artools-workspace/iso/fenrir
+mkdir -p /mnt/home/artools-workspace/fenrir
+
 mount --bind ${FENRIR_DIR} /mnt/usr/share/artools/iso-profiles/fenrir
 mount --bind ${ISO_DIR} /mnt/artools-workspace/iso/fenrir
 
