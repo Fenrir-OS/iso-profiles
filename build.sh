@@ -55,8 +55,8 @@ locale-gen
 yes | pacman -U /fakeroot-tcp.pkg /glibc-linux4.pkg
 pacman-key --init
 pacman-key --populate
-pacman -Sy artools iso-profiles mkinitcpio --noconfirm
-mkinitcpio -P
+modprobe loop
+pacman -Sy artools iso-profiles --noconfirm
 buildiso -p base -q
 EOF
 
