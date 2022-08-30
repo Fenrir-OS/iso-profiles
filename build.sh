@@ -55,9 +55,14 @@ locale-gen
 yes | pacman -U /fakeroot-tcp.pkg /glibc-linux4.pkg
 pacman-key --init
 pacman-key --populate
-modprobe loop
+EOF
+
+cat <<EOF | chroot livefs /bin/bash -xe -
 pacman -Sy artools iso-profiles --noconfirm
+modprobe loop
 buildiso -p base -q
+mkdir /home/artools-workspace
+ln -s ~/artools-workspace /home/artools-workspace
 EOF
 
 pushd livefs
@@ -77,8 +82,7 @@ chmod -R 777 /home/artools-workspace/fenrir
 
 popd
 
-
-cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
+cat <<EOF | chroot livefs /bin/bash -xe -
 buildiso -p fenrir -i runit
 EOF
 
