@@ -56,9 +56,10 @@ yes | pacman -U /fakeroot-tcp.pkg /glibc-linux4.pkg
 pacman-key --init
 pacman-key --populate
 pacman -Sy artools iso-profiles git grub --noconfirm
-buildiso -p base -q
 mkdir /home/artools-workspace
+mkdir ~/artools-workspace
 ln -s ~/artools-workspace /home/artools-workspace
+buildiso -p base -q
 EOF
 
 pushd livefs
@@ -66,9 +67,9 @@ mkdir -p /usr/share/artools/iso-profiles/fenrir
 mkdir -p /home/artools-workspace/iso/fenrir
 mkdir -p /home/artools-workspace/fenrir
 
-ln -s ${FENRIR_DIR} /usr/share/artools/iso-profiles/fenrir
-ln -s ${FENRIR_DIR} /home/artools-workspace/iso/fenrir
-ln -s ${ISO_DIR} /home/artools-workspace
+cp -r ${FENRIR_DIR} /usr/share/artools/iso-profiles/fenrir
+cp -r ${FENRIR_DIR} /home/artools-workspace/iso/fenrir
+cp -r ${ISO_DIR} /home/artools-workspace
 
 chmod -R 777 ${FENRIR_DIR}
 chmod -R 777 ${ISO_DIR}
@@ -94,3 +95,6 @@ To stop automatic generation of this file, remove this line."
 EOF
 
 rm -f rootfs/fakeroot-tcp.pkg rootfs/glibc-linux4.pkg
+
+tar -czvf livefs.tar.gz livefs
+cp livefs.tar.gz ${ISO_DIR}
