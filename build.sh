@@ -58,32 +58,20 @@ pacman-key --populate
 EOF
 
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
-pacman -Sy artools iso-profiles --noconfirm
+pacman -Sy artools iso-profiles git --noconfirm
 buildiso -p base -q
 mkdir /home/artools-workspace
 ln -s ~/artools-workspace /home/artools-workspace
 cp /etc/artools/artools.conf ~/.config/artools
 cp /usr/share/artools/iso-profiles ~/artools-workspace/
-EOF
+cd ~
+git clone https://github.com/Fenrir-OS/iso-profiles
+chmod -R 777 iso-profiles
 
-pushd livefs
-mkdir -p /mnt/usr/share/artools/iso-profiles/fenrir
-mkdir -p /mnt/home/artools-workspace/iso/fenrir
-mkdir -p /mnt/home/artools-workspace/fenrir
-
-mount --bind ${FENRIR_DIR} /mnt/usr/share/artools/iso-profiles/fenrir
-mount --bind ${FENRIR_DIR} /mnt/home/artools-workspace/iso/fenrir
-mount --bind ${ISO_DIR} /mnt/home/artools-workspace/iso/fenrir
-
-chmod -R 777 /mnt/usr/share/artools/iso-profiles/fenrir
-chmod -R 777 /mnt/home/artools-workspace/fenrir
-
-# cp -R ${FENRIR_DIR}/* /usr/share/artools/iso-profiles/fenrir
-# cp -R ${ISO_DIR} /home/artools-workspace/iso/fenrir
-
-popd
-
-cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
+mkdir -p ~/artools-workspace/fenrir
+mkdir -p /usr/share/artools/iso-profiles/fenrir
+cp /iso-profiles/fenrir ~/artools-workspace/fenrir
+cp /usr/share/artools/iso-profiles/fenrir
 buildiso -p fenrir -i runit
 EOF
 
