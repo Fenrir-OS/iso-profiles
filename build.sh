@@ -96,5 +96,5 @@ EOF
 
 rm -f rootfs/fakeroot-tcp.pkg rootfs/glibc-linux4.pkg
 
-tar -czvf livefs.tar.gz livefs
+tar zcpf livefs.tar.gz -C livefs .
 cp livefs.tar.gz ${ISO_DIR}
