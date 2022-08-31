@@ -51,6 +51,6 @@ jobs:
         with:
           repo_token: "${{secrets.GITHUB_TOKEN}}"
           automatic_release_tag: latest
-          files: FenrirOS-runit.zip
+          files: iso/*.iso
           prerelease: false
 
