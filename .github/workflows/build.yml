@@ -39,6 +39,10 @@ jobs:
         with:
           name: iso
           path: iso/
+      - uses: actions/upload-artifact@v3
+        with:
+          name: livefs
+          path: livefs/
   
   publish:
     runs-on: ubuntu-latest
