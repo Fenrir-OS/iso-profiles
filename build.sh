@@ -64,11 +64,9 @@ mkdir /home/artools-workspace
 ln -s ~/artools-workspace /home/artools-workspace
 cp /etc/artools/artools.conf ~/.config/artools
 cp /usr/share/artools/iso-profiles ~/artools-workspace/
-
 cd ~
 git clone https://github.com/Fenrir-OS/iso-profiles
 chmod -R 777 iso-profiles
-
 mkdir -p ~/artools-workspace/fenrir
 mkdir -p /usr/share/artools/iso-profiles/fenrir
 cp /iso-profiles/fenrir ~/artools-workspace/fenrir
