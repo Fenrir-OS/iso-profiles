@@ -10,6 +10,8 @@ DOWNLOAD_DIR="$CWD/download"
 ISO_DIR="$CWD/iso"
 FENRIR_DIR="$CWD/fenrir"
 
+echo $(ls ${FENRIR_DIR})
+
 mkdir -p $BUILD_DIR
 mount --bind $BUILD_DIR $BUILD_DIR
 pushd $BUILD_DIR
