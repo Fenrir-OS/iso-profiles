@@ -58,7 +58,7 @@ pacman-key --populate
 EOF
 
 cat <<EOF | chroot livefs /bin/bash -xe -
-pacman -Sy artools iso-profiles git --noconfirm
+pacman -Sy artools iso-profiles git grub --noconfirm
 buildiso -p base -q
 mkdir /home/artools-workspace
 ln -s ~/artools-workspace /home/artools-workspace
@@ -69,13 +69,13 @@ echo $(ls ~/artools-workspace )
 EOF
 
 pushd livefs
-mkdir -p /mnt/usr/share/artools/iso-profiles/fenrir
-mkdir -p /mnt/home/artools-workspace/iso/fenrir
-mkdir -p /mnt/home/artools-workspace/fenrir
+mkdir -p /usr/share/artools/iso-profiles/fenrir
+mkdir -p /home/artools-workspace/iso/fenrir
+mkdir -p /home/artools-workspace/fenrir
 
-ln -s ${FENRIR_DIR} /mnt/usr/share/artools/iso-profiles/fenrir
-ln -s ${FENRIR_DIR} /mnt/home/artools-workspace/iso/fenrir
-ln -s ${ISO_DIR} /mnt/home/artools-workspace
+ln -s ${FENRIR_DIR} /usr/share/artools/iso-profiles/fenrir
+ln -s ${FENRIR_DIR} /home/artools-workspace/iso/fenrir
+ln -s ${ISO_DIR} /home/artools-workspace
 
 chmod -R 777 ${FENRIR_DIR}
 chmod -R 777 ${ISO_DIR}
