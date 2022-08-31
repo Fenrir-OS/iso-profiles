@@ -73,11 +73,12 @@ mkdir -p ~/artools-workspace/fenrir
 mkdir -p /usr/share/artools/iso-profiles/fenrir
 cp /iso-profiles/fenrir ~/artools-workspace/fenrir
 cp /usr/share/artools/iso-profiles/fenrir
-
+echo $(ls)
 buildiso -p fenrir -i runit
 EOF
 
 pushd livefs
+echo $(ls)
 cp -p /mnt/home/artools-workspace/iso/fenrir ${ISO_DIR}
 popd
 
