@@ -62,10 +62,6 @@ pacman -Sy artools iso-profiles git grub --noconfirm
 buildiso -p base -q
 mkdir /home/artools-workspace
 ln -s ~/artools-workspace /home/artools-workspace
-echo 'List files in /usr/share/artools/iso-profiles'
-echo $(ls /usr/share/artools/iso-profiles)
-echo 'List files in ~/artools-workspace'
-echo $(ls ~/artools-workspace )
 EOF
 
 pushd livefs
@@ -86,14 +82,6 @@ chmod -R 777 ${ISO_DIR}
 popd
 
 cat <<EOF | chroot livefs /bin/bash -xe -
-echo 'List files in /usr/share/artools/iso-profiles'
-echo $(ls /usr/share/artools/iso-profiles)
-echo 'List files in ~/artools-workspace'
-echo $(ls ~/artools-workspace )
-echo 'List files in /usr/share/artools/iso-profiles/fenrir'
-echo $(ls /usr/share/artools/iso-profiles/fenrir)
-echo 'List files in ~/artools-workspace/fenrir'
-echo $(ls ~/artools-workspace/fenrir)
 buildiso -p fenrir -i runit
 EOF
 
