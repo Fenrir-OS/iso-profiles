@@ -59,10 +59,11 @@ EOF
 
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
 pacman -Sy artools iso-profiles --noconfirm
-modprobe loop
 buildiso -p base -q
 mkdir /home/artools-workspace
 ln -s ~/artools-workspace /home/artools-workspace
+cp /etc/artools/artools.conf ~/.config/artools
+cp /usr/share/artools/iso-profiles ~/artools-workspace/
 EOF
 
 pushd livefs
