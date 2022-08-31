@@ -60,22 +60,26 @@ EOF
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
 pacman -Sy artools iso-profiles git --noconfirm
 buildiso -p base -q
+echo 'Create workspace'
 mkdir /home/artools-workspace
+echo 'Link and copy files'
 ln -s ~/artools-workspace /home/artools-workspace
-cp /etc/artools/artools.conf ~/.config/artools
+cp /etc/artools/* ~/.config/artools
 cp /usr/share/artools/iso-profiles ~/artools-workspace/
 cd ~
+echo 'clone git'
 git clone https://github.com/Fenrir-OS/iso-profiles
 chmod -R 777 iso-profiles
 mkdir -p ~/artools-workspace/fenrir
 mkdir -p /usr/share/artools/iso-profiles/fenrir
 cp /iso-profiles/fenrir ~/artools-workspace/fenrir
 cp /usr/share/artools/iso-profiles/fenrir
-echo $(ls)
+echo 'Build fenrir iso'
 buildiso -p fenrir -i runit
 EOF
 
 pushd livefs
+echo 'Liste des fichiers mnt/'
 echo $(ls)
 cp -p /mnt/home/artools-workspace/iso/fenrir ${ISO_DIR}
 popd
