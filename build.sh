@@ -79,7 +79,9 @@ chmod -R 777 ${ISO_DIR}
 popd
 
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
+echo 'Build iso fenrir'
 buildiso -p fenrir -i runit
+echo 'Build iso base'
 buildiso -p base -i runit
 echo 'BuildISO script'
 chmod 777 buildISOs.sh
