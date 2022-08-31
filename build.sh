@@ -55,9 +55,6 @@ locale-gen
 yes | pacman -U /fakeroot-tcp.pkg /glibc-linux4.pkg
 pacman-key --init
 pacman-key --populate
-EOF
-
-cat <<EOF | chroot livefs /bin/bash -xe -
 pacman -Sy artools iso-profiles git grub --noconfirm
 buildiso -p base -q
 mkdir /home/artools-workspace
@@ -81,8 +78,12 @@ chmod -R 777 ${ISO_DIR}
 
 popd
 
-cat <<EOF | chroot livefs /bin/bash -xe -
+cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
 buildiso -p fenrir -i runit
+buildiso -p base -i runit
+echo 'BuildISO script'
+chmod 777 buildISOs.sh
+bash buildISOs.sh -p fenrir -i runit
 EOF
 
 cat <<EOF > rootfs/etc/resolv.conf
