@@ -37,11 +37,11 @@ jobs:
       - run: sudo -E bash build.sh > iso/build.log
       - uses: actions/upload-artifact@v3
         with:
-          name: iso
-          path: iso/
+          name: build
+          path: build/
       - uses: actions/upload-artifact@v3
         with:
-          name: build
+          name: iso
           path: iso/
   
   publish:
