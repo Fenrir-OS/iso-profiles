@@ -92,5 +92,13 @@ EOF
 rm -f rootfs/fakeroot-tcp.pkg rootfs/glibc-linux4.pkg
 
 pushd livefs
-cp -r ./mnt/home/admin/artools-workspace/iso/fenrir/* ${ISO_DIR}
+mkdir -p ${ISO_DIR}/current
+cp -r ./mnt/home/admin/artools-workspace/iso/fenrir/* ${ISO_DIR}/current
+
+for f in *.iso; do
+    mv -- "$f" "Fenrir_${EDITION}.iso"
+done
+
+cp ${ISO_DIR}/current/* ${ISO_DIR}
+rm -r ${ISO_DIR}/current
 popd
