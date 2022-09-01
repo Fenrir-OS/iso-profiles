@@ -80,6 +80,7 @@ su admin
 echo 'Build iso fenrir'
 buildiso -p fenrir -i runit
 cp -r ~/artools-workspace /home/artools-workspace
+su root
 chmod -R 777 /home/admin
 EOF
 
@@ -91,12 +92,5 @@ EOF
 rm -f rootfs/fakeroot-tcp.pkg rootfs/glibc-linux4.pkg
 
 pushd livefs
-mkdir -p ${ISO_DIR}/fenrir
-mkdir -p ${ISO_DIR}/fenrir1
-mkdir -p ${ISO_DIR}/fenrir2
-mkdir -p ${ISO_DIR}/fenrir3
-cp -r ./mnt/usr/share/artools/iso-profiles ${ISO_DIR}/fenrir
-cp -r ./mnt/home/artools-workspace/iso ${ISO_DIR}/fenrir1
-cp -r ./mnt/home/artools-workspace ${ISO_DIR}/fenrir2
-cp -r ./mnt/home ${ISO_DIR}/fenrir3
+cp -r ./mnt/home/admin/artools-workspace/iso/fenrir ${ISO_DIR}
 popd
