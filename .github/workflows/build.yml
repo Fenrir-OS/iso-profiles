@@ -41,7 +41,7 @@ jobs:
           path: iso/
       - uses: actions/upload-artifact@v3
         with:
-          name: livefs
+          name: build
           path: iso/
   
   publish:
