@@ -80,6 +80,7 @@ su admin
 echo 'Build iso fenrir'
 buildiso -p fenrir -i runit
 cp -r ~/artools-workspace /home/artools-workspace
+chmod -R 777 /home/admin
 EOF
 
 cat <<EOF > rootfs/etc/resolv.conf
