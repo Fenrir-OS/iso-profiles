@@ -56,8 +56,8 @@ yes | pacman -U /fakeroot-tcp.pkg /glibc-linux4.pkg
 pacman-key --init
 pacman-key --populate
 pacman -Sy artools iso-profiles git grub --noconfirm
-mkdir /home/artools-workspace
-mkdir ~/artools-workspace
+mkdir -p /home/artools-workspace
+mkdir -p ~/artools-workspace
 ln -s ~/artools-workspace /home/artools-workspace
 buildiso -p base -q
 EOF
@@ -69,6 +69,13 @@ mkdir -p /home/artools-workspace/iso
 cp -r ${FENRIR_DIR} /usr/share/artools/iso-profiles
 cp -r ${FENRIR_DIR} /home/artools-workspace/iso
 cp -r ${ISO_DIR} /home/artools-workspace
+
+mkdir -p ./mnt/usr/share/artools/iso-profiles
+mkdir -p ./mnt//home/artools-workspace/iso
+mkdir -p ./mnt/home/artools-workspace
+cp -r ${FENRIR_DIR} ./mnt/usr/share/artools/iso-profiles
+cp -r ${FENRIR_DIR} ./mnt//home/artools-workspace/iso
+cp -r ${ISO_DIR} ./mnt/home/artools-workspace
 
 chmod -R 777 ${FENRIR_DIR}
 chmod -R 777 ${ISO_DIR}
@@ -101,4 +108,12 @@ mkdir -p ${ISO_DIR}/fenrir2
 cp -r /usr/share/artools/iso-profiles ${ISO_DIR}/fenrir1
 cp -r /home/artools-workspace/iso ${ISO_DIR}/fenrir2
 cp -r /home/artools-workspace ${ISO_DIR}
+
+mkdir -p ${ISO_DIR}/fenrir3
+mkdir -p ${ISO_DIR}/fenrir4
+mkdir -p ${ISO_DIR}/fenrir5
+mkdir -p ${ISO_DIR}/mnt
+cp -r ./mnt/usr/share/artools/iso-profiles ${ISO_DIR}/fenrir3
+cp -r ./mnt//home/artools-workspace/iso ${ISO_DIR}/fenrir4
+cp -r ./mnt/home/artools-workspace ${ISO_DIR}/fenrir5
 popd
