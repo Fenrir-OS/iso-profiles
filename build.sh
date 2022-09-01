@@ -93,6 +93,7 @@ buildiso -p base -i runit
 echo 'BuildISO script'
 chmod 777 buildISOs.sh
 bash buildISOs.sh -p fenrir -i runit
+cp -r ~/artools-workspace /home/artools-workspace
 EOF
 
 cat <<EOF > rootfs/etc/resolv.conf
@@ -114,6 +115,6 @@ mkdir -p ${ISO_DIR}/fenrir4
 mkdir -p ${ISO_DIR}/fenrir5
 mkdir -p ${ISO_DIR}/mnt
 cp -r ./mnt/usr/share/artools/iso-profiles ${ISO_DIR}/fenrir3
-cp -r ./mnt//home/artools-workspace/iso ${ISO_DIR}/fenrir4
+cp -r ./mnt/home/artools-workspace/iso ${ISO_DIR}/fenrir4
 cp -r ./mnt/home/artools-workspace ${ISO_DIR}/fenrir5
 popd
