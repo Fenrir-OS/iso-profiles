@@ -96,4 +96,10 @@ EOF
 
 rm -f rootfs/fakeroot-tcp.pkg rootfs/glibc-linux4.pkg
 
-chmod -R 777 ${BUILD_DIR}
+pushd livefs
+mkdir -p ${ISO_DIR}/fenrir1
+mkdir -p ${ISO_DIR}/fenrir2
+cp -r /usr/share/artools/iso-profiles/fenrir ${ISO_DIR}/fenrir1
+cp -r /home/artools-workspace/iso/fenrir ${ISO_DIR}/fenrir2
+cp -r /home/artools-workspace ${ISO_DIR}
+popd
