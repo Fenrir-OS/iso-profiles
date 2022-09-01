@@ -78,7 +78,7 @@ echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/wheel
 useradd -m -G wheel -s /bin/bash admin
 su admin
 echo 'Build iso fenrir'
-buildiso -p fenrir -i runit
+buildiso -p fenrir -i ${EDITION}
 cp -r ~/artools-workspace /home/artools-workspace
 su root
 chmod -R 777 /home/admin
@@ -92,13 +92,6 @@ EOF
 rm -f rootfs/fakeroot-tcp.pkg rootfs/glibc-linux4.pkg
 
 pushd livefs
-mkdir -p ${ISO_DIR}/current
-cp -r ./mnt/home/admin/artools-workspace/iso/fenrir/* ${ISO_DIR}/current
-
-for f in *.iso; do
-    mv -- "$f" "Fenrir_${EDITION}.iso"
-done
-
-cp ${ISO_DIR}/current/* ${ISO_DIR}
-rm -r ${ISO_DIR}/current
+mkdir -p ${ISO_DIR}
+cp -r ./mnt/home/admin/artools-workspace/iso/fenrir/* ${ISO_DIR}
 popd
