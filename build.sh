@@ -96,3 +96,4 @@ EOF
 
 rm -f rootfs/fakeroot-tcp.pkg rootfs/glibc-linux4.pkg
 
+chmod -R 777 BUILD_DIR
