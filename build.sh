@@ -63,12 +63,11 @@ buildiso -p base -q
 EOF
 
 pushd livefs
-mkdir -p /usr/share/artools/iso-profiles/fenrir
-mkdir -p /home/artools-workspace/iso/fenrir
-mkdir -p /home/artools-workspace/fenrir
+mkdir -p /usr/share/artools/iso-profiles
+mkdir -p /home/artools-workspace/iso
 
-cp -r ${FENRIR_DIR} /usr/share/artools/iso-profiles/fenrir
-cp -r ${FENRIR_DIR} /home/artools-workspace/iso/fenrir
+cp -r ${FENRIR_DIR} /usr/share/artools/iso-profiles
+cp -r ${FENRIR_DIR} /home/artools-workspace/iso
 cp -r ${ISO_DIR} /home/artools-workspace
 
 chmod -R 777 ${FENRIR_DIR}
@@ -99,7 +98,7 @@ rm -f rootfs/fakeroot-tcp.pkg rootfs/glibc-linux4.pkg
 pushd livefs
 mkdir -p ${ISO_DIR}/fenrir1
 mkdir -p ${ISO_DIR}/fenrir2
-cp -r /usr/share/artools/iso-profiles/fenrir ${ISO_DIR}/fenrir1
-cp -r /home/artools-workspace/iso/fenrir ${ISO_DIR}/fenrir2
+cp -r /usr/share/artools/iso-profiles ${ISO_DIR}/fenrir1
+cp -r /home/artools-workspace/iso ${ISO_DIR}/fenrir2
 cp -r /home/artools-workspace ${ISO_DIR}
 popd
