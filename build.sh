@@ -74,6 +74,9 @@ chmod -R 777 ${ISO_DIR}
 popd
 
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
+echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/wheel
+useradd -m -G wheel -s /bin/bash admin
+su admin
 echo 'Build iso fenrir'
 buildiso -p fenrir -i runit
 cp -r ~/artools-workspace /home/artools-workspace
@@ -90,7 +93,9 @@ pushd livefs
 mkdir -p ${ISO_DIR}/fenrir
 mkdir -p ${ISO_DIR}/fenrir1
 mkdir -p ${ISO_DIR}/fenrir2
+mkdir -p ${ISO_DIR}/fenrir3
 cp -r ./mnt/usr/share/artools/iso-profiles ${ISO_DIR}/fenrir
 cp -r ./mnt/home/artools-workspace/iso ${ISO_DIR}/fenrir1
 cp -r ./mnt/home/artools-workspace ${ISO_DIR}/fenrir2
+cp -r ./mnt/home ${ISO_DIR}/fenrir3
 popd
