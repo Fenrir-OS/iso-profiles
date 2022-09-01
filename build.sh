@@ -92,5 +92,5 @@ EOF
 rm -f rootfs/fakeroot-tcp.pkg rootfs/glibc-linux4.pkg
 
 pushd livefs
-cp -r ./mnt/home/admin/artools-workspace/iso/fenrir ${ISO_DIR}
+cp -r ./mnt/home/admin/artools-workspace/iso/fenrir/* ${ISO_DIR}
 popd
