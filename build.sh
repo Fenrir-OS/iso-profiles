@@ -63,7 +63,7 @@ EOF
 
 pushd livefs
 mkdir -p ./mnt/usr/share/artools/iso-profiles
-mkdir -p ./mnt//home/artools-workspace/iso
+mkdir -p ./mnt/home/artools-workspace/iso
 mkdir -p ./mnt/home/artools-workspace
 cp -r ${FENRIR_DIR} ./mnt/usr/share/artools/iso-profiles
 cp -r ${FENRIR_DIR} ./mnt/home/artools-workspace/iso
@@ -71,6 +71,9 @@ cp -r ${ISO_DIR} ./mnt/home/artools-workspace
 
 chmod -R 777 ${FENRIR_DIR}
 chmod -R 777 ${ISO_DIR}
+
+cp -r ${FENRIR_DIR}/live-overlay/usr/share/grub ./mnt/usr/share/grub
+cp -r ${FENRIR_DIR}/root-overlay/etc/default ./mnt/etc/default
 popd
 
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
