@@ -79,7 +79,6 @@ popd
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
 echo 'Chmod 766 dirs'
 chmod -R 766 /usr/share/artools/iso-profiles/
-chmod -R 766 /var/lib/artools/buildiso/fenrir
 chmod -R 766 /etc/
 chmod -R 766 /usr/share
 
@@ -98,6 +97,7 @@ buildiso -p fenrir -i ${EDITION} -sc
 
 echo 'Build iso fenrir => Build bootfs'
 buildiso -p fenrir -i ${EDITION} -bc
+chmod -R 766 /var/lib/artools/buildiso/fenrir
 cp /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/cfg/* /var/lib/artools/buildiso/fenrir/iso/boot/grub
 cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/fenrir /var/lib/artools/buildiso/fenrir/iso/boot/grub
 cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr /var/lib/artools/buildiso/fenrir/artix/rootfs
