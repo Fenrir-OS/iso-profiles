@@ -91,6 +91,9 @@ cp -r /usr/share/artools/iso-profiles/fenrir/root-overlay/etc /
 
 echo 'Build iso fenrir => Build rootfs'
 buildiso -p fenrir -i ${EDITION} -sc
+
+echo 'Build iso fenrir => Build bootfs'
+buildiso -p fenrir -i ${EDITION} -bc
 EOF
 
 pushd livefs
@@ -98,8 +101,6 @@ chmod -R 777 ./mnt/var/lib/artools/buildiso/fenrir
 popd
 
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
-echo 'Build iso fenrir => Build bootfs'
-buildiso -p fenrir -i ${EDITION} -bc
 cp /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/cfg/* /var/lib/artools/buildiso/fenrir/iso/boot/grub
 cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/fenrir /var/lib/artools/buildiso/fenrir/iso/boot/grub
 cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr /var/lib/artools/buildiso/fenrir/artix/rootfs
