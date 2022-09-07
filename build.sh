@@ -82,22 +82,20 @@ useradd -m -G wheel -s /bin/bash admin
 su admin
 echo 'Build iso fenrir => Build livefs'
 buildiso -p fenrir -i ${EDITION} -x
-chown -R admin:admin /etc
-chown -R admin:admin /usr/share/grub
+su root
 cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub /usr/share/
 cp -r /usr/share/artools/iso-profiles/fenrir/root-overlay/etc /
-chown -R root:root /etc
-chown -R root:root /usr/share/grub
+su admin
 echo 'Build iso fenrir => Build rootfs'
 buildiso -p fenrir -i ${EDITION} -sc
 echo 'Build iso fenrir => Build bootfs'
 buildiso -p fenrir -i ${EDITION} -bc
-chown -R admin:admin /var/lib/artools/buildiso/fenrir
+su root
 cp /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/cfg/* /var/lib/artools/buildiso/fenrir/iso/boot/grub
 cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/fenrir /var/lib/artools/buildiso/fenrir/iso/boot/grub
 cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr /var/lib/artools/buildiso/fenrir/artix/rootfs
 cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/etc /var/lib/artools/buildiso/fenrir/artix/rootfs
-chown -R root:root /var/lib/artools/buildiso/fenrir
+su admin
 echo 'Build iso fenrir => Generate ISO'
 buildiso -p fenrir -i ${EDITION} -zc
 
