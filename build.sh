@@ -82,8 +82,8 @@ useradd -m -G wheel -s /bin/bash admin
 su admin
 echo 'Build iso fenrir => Build livefs'
 buildiso -p fenrir -i ${EDITION} -x
-cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub /usr/share/grub
-cp -r /usr/share/artools/iso-profiles/fenrir/root-overlay/etc /etc
+cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub /usr/share/
+cp -r /usr/share/artools/iso-profiles/fenrir/root-overlay/etc /
 echo 'Build iso fenrir => Build rootfs'
 buildiso -p fenrir -i ${EDITION} -sc
 echo 'Build iso fenrir => Build bootfs'
