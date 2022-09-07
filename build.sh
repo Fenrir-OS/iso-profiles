@@ -83,6 +83,7 @@ su admin
 echo 'Build iso fenrir => Build livefs'
 buildiso -p fenrir -i ${EDITION} -x
 su root
+chmod -R 777 /usr/share/artools/iso-profiles/
 cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub /usr/share/
 cp -r /usr/share/artools/iso-profiles/fenrir/root-overlay/etc /
 su admin
