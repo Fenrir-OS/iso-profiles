@@ -80,12 +80,6 @@ chmod -R 777 ./mnt/var/lib/artools/buildiso/fenrir
 popd
 
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
-pacman -Sy sudo
-echo 'Create user admin'
-echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/wheel
-useradd -m -G wheel -s /bin/bash admin
-su admin
-
 echo 'Build iso fenrir => Build livefs'
 buildiso -p fenrir -i ${EDITION} -x
 cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub /usr/share/
@@ -95,13 +89,16 @@ buildiso -p fenrir -i ${EDITION} -sc
 
 echo 'Build iso fenrir => Build bootfs'
 buildiso -p fenrir -i ${EDITION} -bc
-sudo -i
 chmod -R 777 /usr/share/artools/iso-profiles
 chmod -R 777 /var/lib/artools/buildiso/fenrir
 cp /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/cfg/* /var/lib/artools/buildiso/fenrir/iso/boot/grub
 cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/themes /var/lib/artools/buildiso/fenrir/iso/boot/grub
 cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr /var/lib/artools/buildiso/fenrir/artix/rootfs
 cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/etc /var/lib/artools/buildiso/fenrir/artix/rootfs/etc
+
+echo 'Create user admin'
+echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/wheel
+useradd -m -G wheel -s /bin/bash admin
 su admin
 
 echo 'Build iso fenrir => Generate ISO'
