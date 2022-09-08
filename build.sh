@@ -79,7 +79,8 @@ chmod -R 777 ./mnt/usr/share
 chmod -R 777 ./mnt/var/lib/artools/buildiso/fenrir
 popd
 
-cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
+cat <<EOF | sudo chroot livefs artix-chroot /mnt /bin/bash -xe -
+pacman -Sy sudo
 echo 'Create user admin'
 echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/wheel
 useradd -m -G wheel -s /bin/bash admin
@@ -94,7 +95,7 @@ buildiso -p fenrir -i ${EDITION} -sc
 
 echo 'Build iso fenrir => Build bootfs'
 buildiso -p fenrir -i ${EDITION} -bc
-su root
+sudo -i
 chmod -R 777 /usr/share/artools/iso-profiles
 chmod -R 777 /var/lib/artools/buildiso/fenrir
 cp /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/cfg/* /var/lib/artools/buildiso/fenrir/iso/boot/grub
@@ -107,7 +108,7 @@ echo 'Build iso fenrir => Generate ISO'
 buildiso -p fenrir -i ${EDITION} -zc
 
 cp -r ~/artools-workspace /home/artools-workspace
-su root
+sudo -i
 chmod -R 777 /home/admin
 EOF
 
