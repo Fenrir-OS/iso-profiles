@@ -65,6 +65,7 @@ pushd livefs
 mkdir -p ./mnt/usr/share/artools/iso-profiles
 mkdir -p ./mnt/home/artools-workspace/iso
 mkdir -p ./mnt/home/artools-workspace
+mkdir -p ./mnt/var/lib/artools/buildiso/fenrir
 cp -r ${FENRIR_DIR} ./mnt/usr/share/artools/iso-profiles
 cp -r ${FENRIR_DIR} ./mnt/home/artools-workspace/iso
 cp -r ${ISO_DIR} ./mnt/home/artools-workspace
@@ -75,6 +76,7 @@ chmod -R 777 ${ISO_DIR}
 chmod -R 777 ./mnt/usr/share/artools/iso-profiles/
 chmod -R 777 ./mnt/etc/
 chmod -R 777 ./mnt/usr/share
+chmod -R 777 ./mnt/var/lib/artools/buildiso/fenrir
 popd
 
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
@@ -94,13 +96,7 @@ buildiso -p fenrir -i ${EDITION} -sc
 
 echo 'Build iso fenrir => Build bootfs'
 buildiso -p fenrir -i ${EDITION} -bc
-EOF
-
-pushd livefs
-chmod -R 777 ./mnt/var/lib/artools/buildiso/fenrir
-popd
-
-cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
+chmod -R 777 /usr/share/artools/iso-profiles
 cp /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/cfg/* /var/lib/artools/buildiso/fenrir/iso/boot/grub
 cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/fenrir /var/lib/artools/buildiso/fenrir/iso/boot/grub
 cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr /var/lib/artools/buildiso/fenrir/artix/rootfs
