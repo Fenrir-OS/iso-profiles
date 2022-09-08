@@ -97,7 +97,7 @@ buildiso -p fenrir -i ${EDITION} -zc
 
 
 cp -r ~/artools-workspace /home/artools-workspace
-su root
+su
 chmod -R 777 /home/admin
 EOF
 
