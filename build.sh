@@ -79,7 +79,7 @@ chmod -R 777 ./mnt/usr/share
 chmod -R 777 ./mnt/var/lib/artools/buildiso/fenrir
 popd
 
-cat <<EOF | sudo chroot livefs artix-chroot /mnt /bin/bash -xe -
+cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
 pacman -Sy sudo
 echo 'Create user admin'
 echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/wheel
