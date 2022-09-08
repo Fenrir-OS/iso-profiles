@@ -78,9 +78,6 @@ chmod -R 4755 ./mnt/usr/bin/sudo
 popd
 
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
-echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/wheel
-useradd -m -G wheel -s /bin/bash admin
-su admin
 echo 'Build iso fenrir => Build livefs'
 buildiso -p fenrir -i ${EDITION} -x
 chmod -R 777 /usr/share/ 
@@ -96,6 +93,9 @@ cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/fenrir 
 cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr /var/lib/artools/buildiso/fenrir/artix/rootfs
 cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/etc /var/lib/artools/buildiso/fenrir/artix/rootfs
 echo 'Build iso fenrir => Generate ISO'
+echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/wheel
+useradd -m -G wheel -s /bin/bash admin
+su admin
 buildiso -p fenrir -i ${EDITION} -zc
 
 
