@@ -65,7 +65,6 @@ pushd livefs
 mkdir -p ./mnt/usr/share/artools/iso-profiles
 mkdir -p ./mnt/home/artools-workspace/iso
 mkdir -p ./mnt/home/artools-workspace
-mkdir -p ./mnt/var/lib/artools/buildiso/fenrir
 cp -r ${FENRIR_DIR} ./mnt/usr/share/artools/iso-profiles
 cp -r ${FENRIR_DIR} ./mnt/home/artools-workspace/iso
 cp -r ${ISO_DIR} ./mnt/home/artools-workspace
@@ -73,39 +72,32 @@ cp -r ${ISO_DIR} ./mnt/home/artools-workspace
 chmod -R 777 ${FENRIR_DIR}
 chmod -R 777 ${ISO_DIR}
 
-chmod -R 777 ./mnt/usr/share/artools/iso-profiles/
-chmod -R 777 ./mnt/etc/
-chmod -R 777 ./mnt/usr/share
-chmod -R 777 ./mnt/var/lib/artools/buildiso/fenrir
+# cp -r ${FENRIR_DIR}/live-overlay/usr/share/grub ./mnt/usr/share/grub
+# cp -r ${FENRIR_DIR}/root-overlay/etc/default ./mnt/etc/default
 popd
 
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
-echo 'Build iso fenrir => Build livefs'
-buildiso -p fenrir -i ${EDITION} -x
-cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub /usr/share/
-
-echo 'Build iso fenrir => Build rootfs'
-buildiso -p fenrir -i ${EDITION} -sc
-
-echo 'Build iso fenrir => Build bootfs'
-buildiso -p fenrir -i ${EDITION} -bc
-chmod -R 777 /usr/share/artools/iso-profiles
-chmod -R 777 /var/lib/artools/buildiso/fenrir
-cp /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/cfg/* /var/lib/artools/buildiso/fenrir/iso/boot/grub
-cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/themes /var/lib/artools/buildiso/fenrir/iso/boot/grub
-cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr /var/lib/artools/buildiso/fenrir/artix/rootfs
-cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/etc /var/lib/artools/buildiso/fenrir/artix/rootfs/etc
-
-echo 'Create user admin'
 echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/wheel
 useradd -m -G wheel -s /bin/bash admin
 su admin
-
+echo 'Build iso fenrir => Build livefs'
+buildiso -p fenrir -i ${EDITION} -x
+cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub /usr/share/
+cp -r /usr/share/artools/iso-profiles/fenrir/root-overlay/etc /
+echo 'Build iso fenrir => Build rootfs'
+buildiso -p fenrir -i ${EDITION} -sc
+echo 'Build iso fenrir => Build bootfs'
+buildiso -p fenrir -i ${EDITION} -bc
+cp /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/cfg/* /var/lib/artools/buildiso/fenrir/iso/boot/grub
+cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/fenrir /var/lib/artools/buildiso/fenrir/iso/boot/grub
+cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/usr /var/lib/artools/buildiso/fenrir/artix/rootfs
+cp -r /usr/share/artools/iso-profiles/fenrir/live-overlay/etc /var/lib/artools/buildiso/fenrir/artix/rootfs
 echo 'Build iso fenrir => Generate ISO'
 buildiso -p fenrir -i ${EDITION} -zc
 
+
 cp -r ~/artools-workspace /home/artools-workspace
-sudo -i
+su root
 chmod -R 777 /home/admin
 EOF
 
