@@ -92,13 +92,13 @@ echo 'Build iso fenrir => Build bootfs'
 buildiso -p fenrir -i ${EDITION} -bc
 EOF
 
-pushd livefs
+cat <<EOF | chroot livefs /bin/bash -xe -
 chmod -R 777 /var/lib/artools/buildiso/fenrir
 cp ./mnt/usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/cfg/* ./mnt/var/lib/artools/buildiso/fenrir/iso/boot/grub
 cp -r ./mnt/usr/share/artools/iso-profiles/fenrir/live-overlay/usr/share/grub/themes ./mnt/var/lib/artools/buildiso/fenrir/iso/boot/grub
 cp -r ./mnt/usr/share/artools/iso-profiles/fenrir/live-overlay/usr ./mnt/var/lib/artools/buildiso/fenrir/artix/rootfs
 cp -r ./mnt/usr/share/artools/iso-profiles/fenrir/live-overlay/etc ./mnt/var/lib/artools/buildiso/fenrir/artix/rootfs
-popd
+EOF
 
 cat <<EOF | chroot livefs artix-chroot /mnt /bin/bash -xe -
 echo 'Build iso fenrir => Generate ISO'
